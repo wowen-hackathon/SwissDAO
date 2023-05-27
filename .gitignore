@@ -51,13 +51,20 @@ Temporary Items
 /build
 
 # misc
+<<<<<<< HEAD
+=======
+.DS_Store
+>>>>>>> 3597163 (Initial commit from Create Next App)
 *.pem
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
 .pnpm-debug.log*
+=======
+>>>>>>> 3597163 (Initial commit from Create Next App)
 
 # local env files
 .env*.local
@@ -68,6 +75,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+<<<<<<< HEAD
 
 ### Node ###
 # Logs
@@ -306,3 +314,5 @@ package-lock.json
 ### Vercel ###
 
 # End of https://www.toptal.com/developers/gitignore/api/node,solidity,soliditytruffle,macos,nextjs,remix+vercel,vercel
+=======
+>>>>>>> 3597163 (Initial commit from Create Next App)
