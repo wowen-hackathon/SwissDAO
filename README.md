@@ -11,3 +11,9 @@
 
 ## Deploying tokens
 TBD
+
+## Wrapped Wowen
+
+To start a DeFi System we first deployed a Wowen Wrapper that works similar to Wrapped Ethereum: When it receives WOW it sends wrapped WOW (WWOW) back.
+
+The WWOW can be converted into WOW again using the withdraw method.
