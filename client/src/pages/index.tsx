@@ -6,7 +6,7 @@ const Home: NextPage = () => {
     <>
       <nav className="block w-full px-8 shadow-md backdrop-saturate-200 backdrop-blur-2xl border border-white/80 sticky top-0 z-10 py-5 lg:px-16 lg:py-7 max-w-full bg-header bg-opacity-100 text-rtm-white font-semibold rounded-none">
         <div className="relative w-auto h-fit flex items-center">
-          <a className="hidden lg:block cursor-pointer active" href="/home/" aria-current="page">
+          <a className="hidden lg:block cursor-pointer active" href="" aria-current="page">
             <img src="https://www.wowen.io/static/media/Wowen_white.bc50c8aa3083ed679764922c2aa5fc26.svg" className="h-fit" alt="Wowen Logo" />
           </a>
 

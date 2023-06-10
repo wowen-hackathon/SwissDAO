@@ -47,7 +47,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </RainbowKitProvider>
     </WagmiConfig>
   )
