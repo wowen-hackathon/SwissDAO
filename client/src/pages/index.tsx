@@ -1,5 +1,5 @@
-import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { type NextPage } from "next";
+import { CustomConnectButton } from "~/components/connect-button";
 
 const Home: NextPage = () => {
   return (
@@ -29,7 +29,7 @@ const Home: NextPage = () => {
               </div>
             </button> */}
 
-            <ConnectButton />
+            <CustomConnectButton />
           </div>
         </div>
       </nav>
