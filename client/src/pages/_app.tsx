@@ -10,6 +10,7 @@ import '@rainbow-me/rainbowkit/styles.css';
 import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { wowen } from "~/helpers/chain";
+import Layout from "~/layouts/layout";
 
 // const { chains, publicClient } = configureChains(
 //   [mainnet, polygon, optimism, arbitrum],
@@ -47,7 +48,9 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
-        <Component {...pageProps} />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
       </RainbowKitProvider>
     </WagmiConfig>
   )
