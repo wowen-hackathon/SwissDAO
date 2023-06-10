@@ -1,3 +1,4 @@
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { type NextPage } from "next";
 
 const Home: NextPage = () => {
@@ -20,13 +21,15 @@ const Home: NextPage = () => {
             </button>
           </div>
           <div className="flex items-center float-right ml-auto">
-            <button className="align-middle select-none font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none py-3 px-6 text-white shadow-blue-500/20 hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-center rounded-lg cursor-pointer hover:shadow-rtm-green-400/30 shadow-none h-full text-base font-semibold w-fit bg-rtm-green-400 border-2 border-rtm-green-300 mr-4" type="button">
+            {/* <button className="align-middle select-none font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none py-3 px-6 text-white shadow-blue-500/20 hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-center rounded-lg cursor-pointer hover:shadow-rtm-green-400/30 shadow-none h-full text-base font-semibold w-fit bg-rtm-green-400 border-2 border-rtm-green-300 mr-4" type="button">
               <div className="flex items-center">
                 <div className="flex justify-center w-full">
                   <p>Learn more</p>
                 </div>
               </div>
-            </button>
+            </button> */}
+
+            <ConnectButton />
           </div>
         </div>
       </nav>
