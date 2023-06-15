@@ -1,7 +1,5 @@
 import { type AppType } from "next/dist/shared/lib/utils";
-
 import "~/styles/globals.css";
-
 import {
   getDefaultWallets,
   RainbowKitProvider,
@@ -11,14 +9,8 @@ import { configureChains, createConfig, WagmiConfig } from 'wagmi';
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc';
 import { wowen } from "~/helpers/chain";
 import Layout from "~/layouts/layout";
+import Head from "next/head";
 
-// const { chains, publicClient } = configureChains(
-//   [mainnet, polygon, optimism, arbitrum],
-//   [
-//     alchemyProvider({ apiKey: process.env.ALCHEMY_ID! }),
-//     publicProvider()
-//   ]
-// );
 
 const { chains, publicClient } = configureChains(
   [wowen],
@@ -33,8 +25,8 @@ const { chains, publicClient } = configureChains(
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
-  projectId: 'YOUR_PROJECT_ID',
+  appName: 'Wowen Defi Dapp',
+  projectId: '8f1b2beda90805b7a1320c99753267df',
   chains
 });
 
@@ -46,6 +38,10 @@ const wagmiConfig = createConfig({
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
+    <>
+    <Head>
+    <title>Wowen ❖ Defi App</title>
+    </Head>
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider chains={chains}>
         <Layout>
@@ -53,6 +49,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
         </Layout>
       </RainbowKitProvider>
     </WagmiConfig>
+    </>
   )
 };
 
