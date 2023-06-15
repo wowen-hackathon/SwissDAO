@@ -57,7 +57,7 @@ export const Wrap = () => {
     return (
         <>
             <div className="text-white font-mono pt-4 text-xl flex gap-12 justify-center">
-                <div> {balancedData?.formatted.slice(0,6)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balWW?.toString().slice(0,6)} WWOWn</div>
+                <div> {balancedData?.formatted.slice(0,6)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balWW?.toString().slice(0,6)} WWOW</div>
             </div>
             <div className="flex justify-center mt-4 ">
                 <div className="w-[50vw] rounded-xl h-48 text-center border-white border-4">

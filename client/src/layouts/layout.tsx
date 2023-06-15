@@ -8,7 +8,7 @@ import Image from 'next/image'
 export default function Layout({ children }: { children: ReactNode }) {
 	return (
 		<>
-			<nav className="block w-full px-8 shadow-md backdrop-saturate-200 backdrop-blur-2xl sticky top-0 z-10 py-5 lg:px-16 lg:py-7 max-w-full bg-black bg-opacity-100 text-rtm-white font-semibold rounded-none">
+			<nav className="block w-full px-8 sticky top-0 z-10 py-5 lg:px-16 lg:py-7 max-w-full bg-gradient-to-b text-rtm-white font-semibold rounded-none">
 				<div className="relative w-auto h-fit flex items-center">
 					<a className=" lg:block cursor-pointer active" href="" aria-current="page">
 						<Image
