@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useAccount, useBalance,  usePrepareSendTransaction, useContractWrite, usePrepareContractWrite, useContractRead, useSendTransaction } from "wagmi";
+import { useAccount, useBalance, usePrepareSendTransaction, useContractWrite, usePrepareContractWrite, useContractRead, useSendTransaction } from "wagmi";
 import { abiData, wrappedContractAddress } from "~/constants/wrappedWowenContract";
 import { parseEther } from "viem";
 
@@ -31,7 +31,6 @@ export const Wrap = () => {
 
     })
 
-
     const { config: contractprepWriterConf, error: contractprepWriteError } = usePrepareContractWrite({
         address: wrappedContractAddress,
         abi: abiData,
@@ -52,13 +51,13 @@ export const Wrap = () => {
     }
 
 
-  
- 
+
+
 
     return (
         <>
             <div className="text-white font-mono pt-4 text-xl flex gap-12 justify-center">
-                <div> {balancedData?.formatted.slice(0,6)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balWW?.toString().slice(0,6)} {symbolData?.toString()}</div>
+                <div> {balancedData?.formatted.slice(0, 6)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balWW?.toString().slice(0, 6)} {symbolData?.toString()}</div>
             </div>
             <div className="flex justify-center mt-4 ">
                 <div className="w-[50vw] rounded-xl h-48 text-center border-white border-4">
@@ -88,7 +87,7 @@ export const Wrap = () => {
 }
 
 
-                        {/* <button
+{/* <button
                             onClick={() => write?.()}
                             className="align-middle select-none border-white font-sans transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none px-6 shadow-blue hover:shadow-lg focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none normal-case text-base text-center font-bold rounded-lg cursor-pointer hover:shadow-rtm-green shadow-none py-4 text-white bg-wowen w-full" type="button">
                             <div className="flex items-center">
