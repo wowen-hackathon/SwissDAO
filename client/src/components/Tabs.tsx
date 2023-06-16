@@ -53,11 +53,11 @@ export const Tabs = () => {
                     </div>
                 </Tab.List>
                 <Tab.Panels className="w-full flex justify-center">
-                    <Tab.Panel className="h-[90vw] sm:h-[60vw] md:h-[28vw] bg-black w-[70%] rounded-3xl text-white p-2" >
+                    <Tab.Panel className="h-[60vh] w-[90%] sm:w-[90%] sm:h-[60vw] md:h-[44vw] bg-black  rounded-3xl text-white p-2" >
                         <Wrap />
                     </Tab.Panel>
-                    <Tab.Panel className="h-[90vw] sm:h-[60vw] md:h-[44vw] bg-black w-[70%] rounded-3xl text-white p-2"></Tab.Panel>
-                    <Tab.Panel className="h-[90vw] sm:h-[60vw] md:h-[18vw] bg-black w-[70%] rounded-3xl text-white p-2"></Tab.Panel>
+                    <Tab.Panel className="h-[60vh] w-[90%] sm:w-[90%] sm:h-[60vw] md:h-[44vw] bg-black  rounded-3xl text-white p-2"></Tab.Panel>
+                    <Tab.Panel className="h-[60vh] w-[90%] sm:w-[90%] sm:h-[60vw] md:h-[44vw] bg-black  rounded-3xl text-white p-2"></Tab.Panel>
 
 
                 </Tab.Panels>

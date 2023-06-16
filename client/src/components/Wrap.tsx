@@ -4,13 +4,15 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useAccount, useBalance, usePrepareSendTransaction, useContractWrite, usePrepareContractWrite, useContractRead, useSendTransaction } from "wagmi";
 import { abiData, wrappedContractAddress } from "~/constants/wrappedWowenContract";
-import { parseEther } from "viem";
+import { parseEther, parseGwei } from "viem";
 
 
 export const Wrap = () => {
 
     const [input, setInput] = useState<any>(1)
+    const [withdrawAmount, setWithdraw] = useState<any>(1)
 
+    const [withdrawMode, setWithdrawMode] = useState<boolean>(false)
 
     const { address } = useAccount()
     const { data: balancedData, isError: balancedError, isLoading: balancedLoading } = useBalance({
@@ -34,7 +36,8 @@ export const Wrap = () => {
     const { config: contractprepWriterConf, error: contractprepWriteError } = usePrepareContractWrite({
         address: wrappedContractAddress,
         abi: abiData,
-        functionName: 'deposit',
+        functionName: 'withdraw',
+        args: [parseEther(`${withdrawAmount}`)]
 
     })
     const { data: depositData, isError: depositError, isSuccess: depositSuccess, isLoading: depositLoading, write } = useContractWrite(contractprepWriterConf)
@@ -50,38 +53,85 @@ export const Wrap = () => {
         write?.();
     }
 
+    const onWithdraw = () => {
+        write?.();
+    }
+    // console.log(abiData, "abi")
 
-
-
+    console.log(balWW?.toString(), "balWW")
 
     return (
         <>
-            <div className="text-white font-mono pt-4 text-xl flex gap-12 justify-center">
-                <div> {balancedData?.formatted.slice(0, 6)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balWW?.toString().slice(0, 6)} {symbolData?.toString()}</div>
-            </div>
-            <div className="flex justify-center mt-4 ">
-                <div className="w-[50vw] rounded-xl h-48 text-center border-white border-4">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="w-full">
-                            <input {...register("depositAmount", {
-                                required: false,
-                                min: "0.000002",
-                                onChange(e) {
-                                    setInput(e.target.value)
-                                },
-                            })} type="number" placeholder="WoWn Amount" className="peer w-[45%] mt-12  text-center h-full bg-transparent text-white font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue placeholder-shown:border-t-blue border focus:border-3 border-t-transparent focus:border-t-transparent px-3 py-1.5 rounded-[7px] border-blue !border-rtm-black-100 !border-t-rtm-black-100 text-base !text-rtm-green-400 focus:!border-rtm-green-400 focus:!border-t-rtm-green-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+            <div className="flex flex-col">
+                <div className="text-white font-mono pt-4 text-xl flex gap-12 justify-center">
+                    <div> {balancedData?.formatted.slice(0, 6)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balWW?.toString().slice(0, 6)} {symbolData?.toString()}</div>
+                </div>
+                {withdrawMode &&
+                    <div className="flex justify-center mt-4 ">
+                        <div className="w-[50vw] rounded-xl h-48 text-center border-white border-4">
+                            <form onSubmit={handleSubmit(onWithdraw)}>
+                                <div className="w-full">
+                                    <input {...register("withdrawAmountInput", {
+                                        required: true,
+                                        min: "0.000002",
+                                        max: balWW?.toString(),
+                                        onChange(event) {
+                                            setWithdraw(event.target.value)
+                                        },
+                                    })} type="number" placeholder="WWoW Amount" className="peer w-[45%] mt-12  text-center h-full bg-transparent text-white font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue placeholder-shown:border-t-blue border focus:border-3 border-t-transparent focus:border-t-transparent px-3 py-1.5 rounded-[7px] border-blue !border-rtm-black-100 !border-t-rtm-black-100 text-base !text-rtm-green-400 focus:!border-rtm-green-400 focus:!border-t-rtm-green-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+                                </div>
+                                <div className="mt-6">
+
+                                    <button className="h-12 border p-4 text-center align-middle border-t-transparent hover:border-white border-blue border-3 hover:border-l-transparent hover:border-r-transparent hover:border-b-transparent"
+                                        // disabled={!sendTransaction} 
+                                        onClick={() => handleSubmit}>
+                                        Withdraw WWoW
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        {/* {error && (
-                            <div>An error occurred preparing the transaction: {error.message}</div>
-                        )} */}
-                        <button className="mt-8 hover:border-white border-blue border-3" disabled={!sendTransaction} onClick={() => sendTransaction?.()}>
-                            Send Transaction
+                    </div>
+                }
+                {
+                !withdrawMode &&
+                    <div className="flex justify-center mt-4 ">
+                        <div className="w-[50vw] rounded-xl h-48 text-center border-white border-4">
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <div className="w-full">
+                                    <input {...register("depositAmount", {
+                                        required: true,
+                                        min: "0.000002",
+                                        onChange(e) {
+                                            setInput(e.target.value)
+                                        },
+                                    })} type="number" placeholder="WoWn Amount" className="peer w-[45%] mt-12  text-center h-full bg-transparent text-white font-sans font-normal outline outline-0 focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue placeholder-shown:border-t-blue border focus:border-3 border-t-transparent focus:border-t-transparent px-3 py-1.5 rounded-[7px] border-blue !border-rtm-black-100 !border-t-rtm-black-100 text-base !text-rtm-green-400 focus:!border-rtm-green-400 focus:!border-t-rtm-green-400 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+                                </div>
+                                <div className="mt-6">
+
+                                    <button className="h-12 border p-4 text-center align-middle border-t-transparent hover:border-white border-blue border-3 hover:border-l-transparent hover:border-r-transparent hover:border-b-transparent" disabled={!sendTransaction} onClick={() => sendTransaction?.()}>
+                                        Send Transaction
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                }
+
+                <div className="flex justify-center mt-6">
+
+                    {withdrawMode ?
+                        <button onClick={() => setWithdrawMode(!withdrawMode)} className="border p-4 text-center align-middle border-t-transparent border-b-transparent hover:border-white hover:border-l-transparent hover:border-r-transparent hover:border-t-white hover:border-b-white transition-all border-blue border-3 ">
+                            Wrap
                         </button>
 
-                    </form>
+                        :
+                        <button onClick={() => setWithdrawMode(!withdrawMode)} className="border p-4 text-center align-middle border-t-transparent border-b-transparent hover:border-white hover:border-l-transparent hover:border-r-transparent hover:border-t-white hover:border-b-white transition-all border-blue border-3 ">
+                            Withdraw
+                        </button>
+                    }
                 </div>
-            </div>
 
+            </div>
         </>
     )
 }
