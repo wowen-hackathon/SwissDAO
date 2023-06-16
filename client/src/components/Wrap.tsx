@@ -24,6 +24,14 @@ export const Wrap = () => {
 
     })
 
+    const { data: symbolData } = useContractRead({
+        address: wrappedContractAddress,
+        abi: abiData,
+        functionName: 'symbol',
+
+    })
+
+
     const { config: contractprepWriterConf, error: contractprepWriteError } = usePrepareContractWrite({
         address: wrappedContractAddress,
         abi: abiData,
@@ -44,20 +52,13 @@ export const Wrap = () => {
     }
 
 
-    const [hydrated, setHydrated] = React.useState(false);
-    React.useEffect(() => {
-        setHydrated(true);
-    }, []);
-    if (!hydrated) {
-        // Returns null on first render, so the client and server match
-        return null;
-    }
+  
  
 
     return (
         <>
             <div className="text-white font-mono pt-4 text-xl flex gap-12 justify-center">
-                <div> {balancedData?.formatted.slice(0,6)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balWW?.toString().slice(0,6)} WWOW</div>
+                <div> {balancedData?.formatted.slice(0,6)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balWW?.toString().slice(0,6)} {symbolData?.toString()}</div>
             </div>
             <div className="flex justify-center mt-4 ">
                 <div className="w-[50vw] rounded-xl h-48 text-center border-white border-4">
