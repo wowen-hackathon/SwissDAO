@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import {ERC20FixedSupply} from "ERC20FixedSupply.sol";
-import {ERC20FixedSupplyVoteable} from "ERC20FixedSupplyVoteable.sol";
-import {ERC20VariableSupply} from "ERC20VariableSupply.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import {ERC20FixedSupply} from "./ERC20FixedSupply.sol";
+import {ERC20CappedSupplyVoteable} from "./ERC20CappedSupplyVoteable.sol";
+import {ERC20VariableSupply} from "./ERC20VariableSupply.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract TokenFactory {
     enum TokenType {
@@ -14,52 +16,32 @@ contract TokenFactory {
 
     event TokenCreated(address indexed tokenAddress);
 
-    function createToken(
-        string memory _name,
-        string memory _symbol,
-        uint8 _decimals,
-        uint256 _totalSupply,
-        TokenType _tokenType
+    function create(
+        string memory name,
+        string memory symbol,
+        uint256 totalSupply,
+        TokenType tokenType
     ) external returns (address) {
-        bytes32 salt = keccak256(abi.encodePacked(_name, _symbol));
-        address tokenAddress;
 
-        // Create2 address computation
-        assembly {
-            let bytecode := getBytecode(_tokenType)
-            tokenAddress := create2(0, add(bytecode, 32), mload(bytecode), salt)
-            if iszero(extcodesize(tokenAddress)) {
-                revert(0, 0)
-            }
-        }
+        ERC20 token;
 
         // Initialize the ERC20Token contract by calling the initialize function
-        if (_tokenType == TokenType.FixedSupply) {
-            ERC20FixedSupply(tokenAddress).initialize(_name, _symbol, _decimals, _totalSupply);
-        } else if (_tokenType == TokenType.FixedSupplyVoteable) {
-            ERC20FixedSupplyVoteable(tokenAddress).initialize(_name, _symbol, _decimals, _totalSupply);
-        } else if (_tokenType == TokenType.VariableSupply) {
-            ERC20VariableSupply(tokenAddress).initialize(_name, _symbol, _decimals, _totalSupply);
+        if (tokenType == TokenType.FixedSupply) {
+            token = new ERC20FixedSupply(name, symbol, totalSupply);
+        } else if (tokenType == TokenType.FixedSupplyVoteable) {
+            token = new ERC20CappedSupplyVoteable(name, symbol, totalSupply);
+        } else if (tokenType == TokenType.VariableSupply) {
+            token = new ERC20VariableSupply(name, symbol, totalSupply);
         } else {
             revert("Invalid token type");
         }
+
+        address tokenAddress = address(token);
 
         // Transfer ownership of the token to the caller of the factory
         Ownable(tokenAddress).transferOwnership(msg.sender);
 
         emit TokenCreated(tokenAddress);
         return tokenAddress;
-    }
-
-    function getBytecode(TokenType _tokenType) private pure returns (bytes memory) {
-        if (_tokenType == TokenType.FixedSupply) {
-            return type(ERC20FixedSupply).creationCode;
-        } else if (_tokenType == TokenType.FixedSupplyVoteable) {
-            return type(ERC20FixedSupplyVoteable).creationCode;
-        } else if (_tokenType == TokenType.VariableSupply) {
-            return type(ERC20VariableSupply).creationCode;
-        } else {
-            revert("Invalid token type");
-        }
     }
 }
