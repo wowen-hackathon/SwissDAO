@@ -13,7 +13,7 @@ contract ERC20VariableSupply is ERC20, ERC20Permit, ERC20FlashMint, ERC20Burnabl
         string memory name,
         string memory symbol,
         uint256 totalSupply) ERC20(name, symbol) ERC20Permit(name) {
-        _mint(msg.sender, totalSupply * 10 ** decimals());
+        _mint(msg.sender, totalSupply * 10 * decimals());
     }
 
     function mint(address to, uint256 amount) public onlyOwner {

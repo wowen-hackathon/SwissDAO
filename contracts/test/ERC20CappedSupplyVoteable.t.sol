@@ -27,7 +27,7 @@ contract ERC20CappedSupplyVoteableTest is Test {
         uint256 amount = 1000;
         assertEq(
             token.balanceOf(owner),
-            totalSupply * 10**decimals
+            totalSupply * 10 * decimals
         );
         
         // assertTrue(token.transfer(recipient, amount), "Transfer failed");
@@ -38,7 +38,7 @@ contract ERC20CappedSupplyVoteableTest is Test {
         );
         assertEq(
             token.balanceOf(owner),
-            totalSupply * 10**decimals -amount
+            totalSupply * 10 * decimals - amount
         );
     }
 

@@ -12,6 +12,6 @@ contract ERC20FixedSupply is ERC20, ERC20Permit, ERC20FlashMint, Ownable {
         string memory name,
         string memory symbol,
         uint256 totalSupply) ERC20(name, symbol) ERC20Permit(name) {
-        _mint(msg.sender, totalSupply * 10 ** decimals());
+        _mint(msg.sender, totalSupply * 10 * decimals());
     }
 }

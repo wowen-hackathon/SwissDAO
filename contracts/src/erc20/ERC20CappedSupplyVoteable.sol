@@ -14,8 +14,8 @@ contract ERC20CappedSupplyVoteable is ERC20, ERC20Permit, ERC20FlashMint, Ownabl
     constructor(
         string memory name,
         string memory symbol,
-        uint256 totalSupply) ERC20(name, symbol) ERC20Permit(name) ERC20Burnable() ERC20Votes() ERC20Capped(totalSupply) {
-            _mint(msg.sender, totalSupply);
+        uint256 totalSupply) ERC20(name, symbol) ERC20Permit(name) ERC20Burnable() ERC20Votes() ERC20Capped(totalSupply * 10 * decimals()) {
+            _mint(msg.sender, totalSupply * 10 * decimals());
     }
     // The following functions are overrides required by Solidity.
 

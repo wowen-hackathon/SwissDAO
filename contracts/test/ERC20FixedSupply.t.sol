@@ -23,6 +23,8 @@ contract ERC20FixedSupplyBaseSetup is ERC20FixedSupply, Test {
         bob = vm.addr(2);
         vm.deal(bob, 100 ether);
         vm.label(bob, "Bob");
+
+        _mint(msg.sender, 1000000 * 10 * decimals());
     }
 }
 
@@ -33,14 +35,21 @@ contract ERC20FixedSupplyTest is ERC20FixedSupplyBaseSetup {
         console.log("When transferring tokens");
     }
 
+    function testSupplyAndMint() public {
+        console.logAddress(address(this));
+        console.logAddress(address(this.owner()));
+        assertEq(totalSupply(), 1000000);
+        assertEq(totalSupply(), this.balanceOf(msg.sender));
+    }
+
     function testTransfer() public {
         // Transfer tokens
         uint256 amount = 1000;
 
-        this.transfer(bob, amount);
+        this.transfer(alice, amount);
 
         // Verify balances
-        assertEq(this.balanceOf(address(this)), totalSupply * 10**decimals() - amount);
-        assertEq(this.balanceOf(bob), amount, "Incorrect recipient balance");
+        assertEq(this.balanceOf(msg.sender), totalSupply() - amount);
+        assertEq(this.balanceOf(alice), amount, "Incorrect recipient balance");
     }
 }
