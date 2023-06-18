@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.18+commit.87f61d96"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"details": "String operations.",
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/src/erc20/TokenFactoryVariable_flattened.sol": "Strings"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 300
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/src/erc20/TokenFactoryVariable_flattened.sol": {
+			"keccak256": "0xcbe0f8784ac0c277a51d1ad8448d85ad581f5afb86d04965226f0a0fed554f21",
+			"urls": [
+				"bzz-raw://380928133e98c7d4b3cebcf12f73fcc842b70facb79c1ce96c48a1aa211dc6f6",
+				"dweb:/ipfs/QmSv8R4pThvtNaxFkXeaiyaMrwGn4tHLuJ25m7QL2CbsM1"
+			]
+		}
+	},
+	"version": 1
+}
