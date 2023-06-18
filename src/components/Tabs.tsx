@@ -2,6 +2,7 @@
 import { useState } from 'react'
 import { Tab } from '@headlessui/react'
 import {  Wrap } from './Wrap'
+import { Pair } from './Pair'
 
 
 function classNames(...classes: any) {
@@ -56,7 +57,9 @@ export const Tabs = () => {
                     <Tab.Panel className="h-[60vh] w-[90%] sm:w-[90%] sm:h-[60vw] md:h-[44vw] bg-black  rounded-3xl text-white p-2" >
                         <Wrap />
                     </Tab.Panel>
-                    <Tab.Panel className="h-[60vh] w-[90%] sm:w-[90%] sm:h-[60vw] md:h-[44vw] bg-black  rounded-3xl text-white p-2"></Tab.Panel>
+                    <Tab.Panel className="h-[60vh] w-[90%] sm:w-[90%] sm:h-[60vw] md:h-[24vw] bg-black  rounded-3xl text-white p-2">
+                        <Pair />
+                    </Tab.Panel>
                     <Tab.Panel className="h-[60vh] w-[90%] sm:w-[90%] sm:h-[60vw] md:h-[44vw] bg-black  rounded-3xl text-white p-2"></Tab.Panel>
 
 

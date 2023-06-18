@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { useAccount, useBalance, usePrepareSendTransaction, useContractWrite, usePrepareContractWrite, useContractRead, useSendTransaction } from "wagmi";
 import { abiData, wrappedContractAddress } from "~/constants/wrappedWowenContract";
 import { parseEther, parseGwei } from "viem";
-
+import {ethers} from "ethers"
 
 export const Wrap = () => {
 
@@ -25,6 +25,10 @@ export const Wrap = () => {
         args: [address]
 
     })
+
+
+
+ 
 
     const { data: symbolData } = useContractRead({
         address: wrappedContractAddress,
@@ -49,6 +53,7 @@ export const Wrap = () => {
     const { sendTransaction } = useSendTransaction(config)
 
     const { register, handleSubmit, formState: { isValid, errors } } = useForm({ mode: 'onBlur' });
+    
     const onSubmit = () => {
         write?.();
     }
@@ -56,15 +61,13 @@ export const Wrap = () => {
     const onWithdraw = () => {
         write?.();
     }
-    // console.log(abiData, "abi")
 
-    console.log(balWW?.toString(), "balWW")
-
+     const balancedWrappedW:any = balWW && ethers.utils.formatEther(balWW as any);
     return (
         <>
             <div className="flex flex-col">
                 <div className="text-white font-mono pt-4 text-xl flex gap-12 justify-center">
-                    <div> {balancedData?.formatted.slice(0, 6)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balWW?.toString().slice(0, 6)} {symbolData?.toString()}</div>
+                    <div> {balancedData?.formatted.slice(0,4)} {balancedData?.symbol} </div>  Wrap your Tokens  <div >{balancedWrappedW.toString()} {symbolData?.toString()}</div>
                 </div>
                 {withdrawMode &&
                     <div className="flex justify-center mt-4 ">
@@ -93,7 +96,7 @@ export const Wrap = () => {
                     </div>
                 }
                 {
-                !withdrawMode &&
+                    !withdrawMode &&
                     <div className="flex justify-center mt-4 ">
                         <div className="w-[50vw] rounded-xl h-48 text-center border-white border-4">
                             <form onSubmit={handleSubmit(onSubmit)}>
